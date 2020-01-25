@@ -1,9 +1,5 @@
 {
-  "cSpell.words": [
-    "Henrique",
-    "Peralta",
-    "Voloo"
-  ],
+  "cSpell.words": ["Henrique", "Peralta", "Voloo", "middlewares"],
   "[typescript]": {
     "editor.formatOnSave": false
   },
@@ -11,6 +7,6 @@
     "editor.formatOnSave": false
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll": true
   }
 }

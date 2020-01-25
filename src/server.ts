@@ -1,2 +1,3 @@
-const a = 7
-console.log(a)
+import app from './app'
+
+app.listen(3333)
