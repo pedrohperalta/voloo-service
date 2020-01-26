@@ -36,6 +36,6 @@ export class Wish {
     this.linkUrl = json.linkUrl || null
     this.currency = json.currency
     this.price = json.price
-    this.comments = json.comments
+    this.comments = json.comments || null
   }
 }

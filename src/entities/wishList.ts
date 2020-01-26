@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EmptyFieldError, InexistentFieldError, InvalidFieldError } from '../errors'
+import { Wish } from './wish'
 
 const availableCategories = [
   'birthday',
@@ -19,6 +20,7 @@ export class WishList {
   readonly name: string
   readonly category: string
   readonly isPrivate: boolean
+  readonly wishes: Wish[]
 
   constructor (json: any) {
     if (!json.name) {
@@ -41,5 +43,6 @@ export class WishList {
     this.name = json.name
     this.category = json.category
     this.isPrivate = json.isPrivate || false
+    this.wishes = json.wishes.map(w => new Wish(w))
   }
 }

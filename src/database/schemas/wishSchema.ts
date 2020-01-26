@@ -1,11 +1,11 @@
 import { Document, Schema } from 'mongoose'
 
-export interface WishModel extends Document {
-  readonly name: string
-  readonly linkUrl: string | null
-  readonly currency: string
-  readonly price: number
-  readonly comments: string | null
+export interface WishDbModel extends Document {
+  name: string
+  linkUrl: string | null
+  currency: string
+  price: number
+  comments: string | null
 }
 
 export const WishSchema = new Schema({

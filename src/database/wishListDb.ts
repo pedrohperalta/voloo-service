@@ -1,12 +1,12 @@
 import { Model } from 'mongoose'
-import { WishList } from '../entities'
-import { WishListModel } from './schemas'
+import { WishList, Wish } from '../entities'
+import { WishListDbModel } from './schemas'
 
 export class WishListDb {
-  private document: Model<WishListModel>
+  private document: Model<WishListDbModel>
   private connectDb: () => Promise<void>
 
-  constructor (document: Model<WishListModel>, connectDb: () => Promise<void>) {
+  constructor (document: Model<WishListDbModel>, connectDb: () => Promise<void>) {
     this.document = document
     this.connectDb = connectDb
   }
@@ -25,7 +25,17 @@ export class WishListDb {
   list = async (): Promise<WishList[]> => {
     await this.connectDb()
 
-    const lists = await this.document.find()
+    const lists = await this.document.find().populate('wishes')
     return lists.map(listDb => new WishList(listDb))
+  }
+
+  addWish = async (id: string, wish: Wish): Promise<WishList> => {
+    await this.connectDb()
+
+    return this.document.findByIdAndUpdate(
+      id,
+      { $push: { wishes: wish.id } },
+      { new: true }
+    )
   }
 }

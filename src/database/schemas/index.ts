@@ -1,6 +1,6 @@
 import mongoose, { model, STATES } from 'mongoose'
-import { WishListModel, WishListSchema } from './wishListSchema'
-import { WishModel, WishSchema } from './wishSchema'
+import { WishListDbModel, WishListSchema } from './wishListSchema'
+import { WishDbModel, WishSchema } from './wishSchema'
 
 require('dotenv').config()
 
@@ -13,12 +13,13 @@ export const connect = async (): Promise<void> => {
   }
 
   mongoose.connect(`${url}/${dbName}`, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   })
 }
 
 export * from './wishListSchema'
 export * from './wishSchema'
 
-export const wishListDocument = model<WishListModel>('WishList', WishListSchema)
-export const wishDocument = model<WishModel>('Wish', WishSchema)
+export const wishListDocument = model<WishListDbModel>('WishList', WishListSchema)
+export const wishDocument = model<WishDbModel>('Wish', WishSchema)
