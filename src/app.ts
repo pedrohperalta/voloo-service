@@ -1,32 +1,28 @@
 import cors from 'cors'
 import express from 'express'
-import mongoose from 'mongoose'
 import routes from './routes'
 
-class App {
-  express: express.Application
+export default class App {
+  private webServer: express.Application
+  private port: number
 
-  constructor () {
-    this.express = express()
-    this.middlewares()
-    this.database()
-    this.routes()
+  constructor (webServer: express.Application, port: number) {
+    this.webServer = webServer
+    this.port = port
+    this.setupMiddlewares()
+    this.setupRoutes()
   }
 
-  private middlewares (): void {
-    this.express.use(express.json())
-    this.express.use(cors())
+  private setupMiddlewares = (): void => {
+    this.webServer.use(express.json())
+    this.webServer.use(cors())
   }
 
-  private database (): void {
-    mongoose.connect('mongodb://localhost:27017/voloo', {
-      useNewUrlParser: true
-    })
+  private setupRoutes = (): void => {
+    this.webServer.use(routes)
   }
 
-  private routes (): void {
-    this.express.use(routes)
+  listen = (): void => {
+    this.webServer.listen(this.port)
   }
 }
-
-export default new App().express

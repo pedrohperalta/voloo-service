@@ -1,20 +1,28 @@
 import { Request, Response } from 'express'
-import wishListUseCase from '../use-cases/wishListUseCase'
+import { WishListUseCase } from '../use-cases'
 
-class WishListController {
-  async create (req: Request, res: Response): Promise<Response> {
+export class WishListController {
+  private useCase: WishListUseCase
+
+  constructor (useCase: WishListUseCase) {
+    this.useCase = useCase
+  }
+
+  create = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const created = await wishListUseCase.create(req.body)
+      const created = await this.useCase.create(req.body)
       return res.json(created)
     } catch (error) {
-      return res.status(400).json({ error: error.message })
+      return res.json({ error: error.message })
     }
   }
 
-  async list (req: Request, res: Response): Promise<Response> {
-    const lists = await wishListUseCase.list()
-    return res.json(lists)
+  list = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const lists = await this.useCase.list()
+      return res.json(lists)
+    } catch (error) {
+      return res.json({ error: error.message })
+    }
   }
 }
-
-export default new WishListController()

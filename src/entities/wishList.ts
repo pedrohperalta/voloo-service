@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { EmptyFieldError, InexistentFieldError, InvalidFieldError } from '../errors'
+
 const availableCategories = [
   'birthday',
   'books',
@@ -12,7 +14,7 @@ const availableCategories = [
   'wedding'
 ]
 
-export default class WishList {
+export class WishList {
   readonly id?: string
   readonly name: string
   readonly category: string
@@ -20,19 +22,19 @@ export default class WishList {
 
   constructor (json: any) {
     if (!json.name) {
-      throw new Error('Wishlist must have a name')
+      throw new InexistentFieldError('Wishlist must have a name')
     }
 
     if (json.name.trim().length === 0) {
-      throw new Error('WishList name cannot be empty')
+      throw new EmptyFieldError('WishList name cannot be empty')
     }
 
     if (!json.category) {
-      throw new Error('Wishlist must have a category')
+      throw new InexistentFieldError('Wishlist must have a category')
     }
 
     if (availableCategories.filter(c => c === json.category).length === 0) {
-      throw new Error('Invalid category')
+      throw new InvalidFieldError('Invalid category')
     }
 
     this.id = json.id

@@ -1,12 +1,12 @@
-import { Document, model, Schema } from 'mongoose'
+import { Document, Schema } from 'mongoose'
 
-interface WishListDb extends Document {
+export interface WishListModel extends Document {
   name: string
   category: string
   isPrivate: boolean
 }
 
-const WishListSchema = new Schema({
+export const WishListSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -20,9 +20,13 @@ const WishListSchema = new Schema({
   isPrivate: {
     type: Boolean,
     required: true
-  }
+  },
+  wishes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Wish'
+    }
+  ]
 }, {
   timestamps: true
 })
-
-export default model<WishListDb>('WishList', WishListSchema)

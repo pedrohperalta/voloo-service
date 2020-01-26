@@ -1,21 +1,19 @@
-import WishList from '../entities/wishList'
-import WishListSchema from '../schemas/wishListSchema'
+import { WishListDb } from '../database'
+import { WishList } from '../entities'
 
-class WishListUseCase {
-  async create (json: JSON): Promise<WishList> {
-    const wishList = new WishList(json)
-    const created = await WishListSchema.create(wishList)
+export class WishListUseCase {
+  private db: WishListDb
 
-    return {
-      ...wishList,
-      id: created.id
-    }
+  constructor (db: WishListDb) {
+    this.db = db
   }
 
-  async list (): Promise<WishList[]> {
-    const lists = await WishListSchema.find()
-    return lists.map(listDb => new WishList(listDb))
+  create = async (json: JSON): Promise<WishList> => {
+    const wishList = new WishList(json)
+    return this.db.create(wishList)
+  }
+
+  list = async (): Promise<WishList[]> => {
+    return this.db.list()
   }
 }
-
-export default new WishListUseCase()
