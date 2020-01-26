@@ -2,7 +2,7 @@ import { Model } from 'mongoose'
 import { Wish } from '../entities'
 import { WishDbModel } from './schemas'
 
-export class WishDb {
+export class WishesDb {
   private document: Model<WishDbModel>
   private connectDb: () => Promise<void>
 

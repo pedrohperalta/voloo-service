@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import { WishListUseCase } from '../use-cases'
+import { ListsUseCase } from '../use-cases'
 
-export class WishListController {
-  private useCase: WishListUseCase
+export class ListsController {
+  private useCase: ListsUseCase
 
-  constructor (useCase: WishListUseCase) {
+  constructor (useCase: ListsUseCase) {
     this.useCase = useCase
   }
 

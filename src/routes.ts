@@ -1,10 +1,13 @@
 import { Router } from 'express'
-import { wishListController, wishController } from './controllers'
+import { listsController, wishesController } from './controllers'
 
 const routes = Router()
 
-routes.get('/wish-list', wishListController.list)
-routes.post('/wish-list', wishListController.create)
-routes.post('/wish-list/:id/wishes', wishController.create)
+/* Lists API */
+routes.get('/lists', listsController.list)
+routes.post('/lists', listsController.create)
+
+/* Wishes API */
+routes.post('/lists/:id/wishes', wishesController.create)
 
 export default routes

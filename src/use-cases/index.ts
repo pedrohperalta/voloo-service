@@ -1,9 +1,9 @@
-import { wishDb, wishListDb } from '../database'
-import { WishListUseCase } from './wishListUseCase'
-import { WishUseCase } from './wishUseCase'
+import { listsDb, wishesDb } from '../database'
+import { ListsUseCase } from './listsUseCase'
+import { WishesUseCase } from './wishesUseCase'
 
-export * from './wishListUseCase'
-export * from './wishUseCase'
+export * from './listsUseCase'
+export * from './wishesUseCase'
 
-export const wishListUseCase = new WishListUseCase(wishListDb)
-export const wishUseCase = new WishUseCase(wishDb, wishListDb)
+export const listsUseCase = new ListsUseCase(listsDb)
+export const wishesUseCase = new WishesUseCase(wishesDb, listsDb)

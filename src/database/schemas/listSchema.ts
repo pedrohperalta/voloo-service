@@ -1,14 +1,14 @@
 import { Document, Schema } from 'mongoose'
 import { WishDbModel } from './wishSchema'
 
-export interface WishListDbModel extends Document {
+export interface ListDbModel extends Document {
   name: string
   category: string
   isPrivate: boolean
   wishes: WishDbModel[]
 }
 
-export const WishListSchema = new Schema({
+export const ListSchema = new Schema({
   name: {
     type: String,
     required: true,

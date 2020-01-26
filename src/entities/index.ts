@@ -1,2 +1,2 @@
 export * from './wish'
-export * from './wishList'
+export * from './list'

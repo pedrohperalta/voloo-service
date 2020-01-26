@@ -15,7 +15,7 @@ const availableCategories = [
   'wedding'
 ]
 
-export class WishList {
+export class List {
   readonly id?: string
   readonly name: string
   readonly category: string

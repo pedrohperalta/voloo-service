@@ -1,5 +1,5 @@
 import mongoose, { model, STATES } from 'mongoose'
-import { WishListDbModel, WishListSchema } from './wishListSchema'
+import { ListDbModel, ListSchema } from './listSchema'
 import { WishDbModel, WishSchema } from './wishSchema'
 
 require('dotenv').config()
@@ -18,8 +18,8 @@ export const connect = async (): Promise<void> => {
   })
 }
 
-export * from './wishListSchema'
+export * from './listSchema'
 export * from './wishSchema'
 
-export const wishListDocument = model<WishListDbModel>('WishList', WishListSchema)
+export const listDocument = model<ListDbModel>('List', ListSchema)
 export const wishDocument = model<WishDbModel>('Wish', WishSchema)

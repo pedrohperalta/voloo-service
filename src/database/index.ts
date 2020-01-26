@@ -1,9 +1,9 @@
-import { connect, wishDocument, wishListDocument } from './schemas'
-import { WishDb } from './wishDb'
-import { WishListDb } from './wishListDb'
+import { ListsDb } from './listsDb'
+import { connect, listDocument, wishDocument } from './schemas'
+import { WishesDb } from './wishesDb'
 
-export * from './wishDb'
-export * from './wishListDb'
+export * from './listsDb'
+export * from './wishesDb'
 
-export const wishListDb = new WishListDb(wishListDocument, connect)
-export const wishDb = new WishDb(wishDocument, connect)
+export const listsDb = new ListsDb(listDocument, connect)
+export const wishesDb = new WishesDb(wishDocument, connect)

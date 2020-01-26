@@ -1,6 +1,6 @@
-import { wishListUseCase, wishUseCase } from '../use-cases'
-import { WishController } from './wishController'
-import { WishListController } from './wishListController'
+import { listsUseCase, wishesUseCase } from '../use-cases'
+import { ListsController } from './listsController'
+import { WishesController } from './wishesController'
 
-export const wishListController = new WishListController(wishListUseCase)
-export const wishController = new WishController(wishUseCase)
+export const listsController = new ListsController(listsUseCase)
+export const wishesController = new WishesController(wishesUseCase)
