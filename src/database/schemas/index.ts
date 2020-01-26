@@ -14,7 +14,8 @@ export const connect = async (): Promise<void> => {
 
   mongoose.connect(`${url}/${dbName}`, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
 }
 

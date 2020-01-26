@@ -43,6 +43,6 @@ export class List {
     this.name = json.name
     this.category = json.category
     this.isPrivate = json.isPrivate || false
-    this.wishes = json.wishes.map(w => new Wish(w))
+    this.wishes = json.wishes?.map(w => new Wish(w))
   }
 }

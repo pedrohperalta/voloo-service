@@ -1,5 +1,6 @@
 import { ListsDb, WishesDb } from '../database'
 import { Wish } from '../entities'
+import { NotFoundError } from '../errors'
 
 export class WishesUseCase {
   private wishesDb: WishesDb
@@ -11,8 +12,15 @@ export class WishesUseCase {
   }
 
   create = async (listId: string, json: JSON): Promise<Wish> => {
-    const wish = await this.wishesDb.create(new Wish(json))
-    await this.listsDb.addWish(listId, wish)
+    const list = await this.listsDb.find(listId)
+    if (!list) {
+      throw new NotFoundError('Wishlist does not exist')
+    }
+
+    const wish = new Wish(json)
+    const created = await this.wishesDb.create(wish)
+
+    await this.listsDb.addWish(listId, created)
 
     return wish
   }

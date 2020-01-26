@@ -29,6 +29,15 @@ export class ListsDb {
     return lists.map(listDb => new List(listDb))
   }
 
+  find = async (id: string): Promise<List | null> => {
+    await this.connectDb()
+    const listDb = await this.document.findById(id).populate('wishes')
+
+    if (!listDb) return null
+
+    return new List(listDb)
+  }
+
   addWish = async (id: string, wish: Wish): Promise<List> => {
     await this.connectDb()
 
