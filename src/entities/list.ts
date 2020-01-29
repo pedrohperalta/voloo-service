@@ -23,6 +23,15 @@ export class List {
   readonly wishes: Wish[]
 
   constructor (json: any) {
+    List.validate(json)
+    this.id = json.id
+    this.name = json.name
+    this.category = json.category
+    this.isPrivate = json.isPrivate || false
+    this.wishes = json.wishes?.map(w => new Wish(w))
+  }
+
+  static validate (json: any): void {
     if (!json.name) {
       throw new InexistentFieldError('Wishlist must have a name')
     }
@@ -38,11 +47,5 @@ export class List {
     if (availableCategories.filter(c => c === json.category).length === 0) {
       throw new InvalidFieldError('Invalid category')
     }
-
-    this.id = json.id
-    this.name = json.name
-    this.category = json.category
-    this.isPrivate = json.isPrivate || false
-    this.wishes = json.wishes?.map(w => new Wish(w))
   }
 }

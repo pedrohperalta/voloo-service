@@ -1,4 +1,5 @@
-import { Model } from 'mongoose'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Model, Types } from 'mongoose'
 import { List, Wish } from '../entities'
 import { ListDbModel } from './schemas'
 
@@ -31,11 +32,37 @@ export class ListsDb {
 
   find = async (id: string): Promise<List | null> => {
     await this.connectDb()
-    const listDb = await this.document.findById(id).populate('wishes')
 
-    if (!listDb) return null
+    if (!Types.ObjectId.isValid(id)) {
+      return null
+    }
+
+    const listDb = await this.document.findById(id).populate('wishes')
+    if (!listDb) {
+      return null
+    }
 
     return new List(listDb)
+  }
+
+  edit = async (id: string, newList: {[key: string]: any}): Promise<List | null> => {
+    await this.connectDb()
+
+    if (!Types.ObjectId.isValid(id)) {
+      return null
+    }
+
+    const edited = await this.document.findByIdAndUpdate(
+      id,
+      { $set: newList },
+      { new: true }
+    ).populate('wishes')
+
+    if (!edited) {
+      return null
+    }
+
+    return new List(edited)
   }
 
   addWish = async (id: string, wish: Wish): Promise<List> => {

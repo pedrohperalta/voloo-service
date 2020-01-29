@@ -11,6 +11,16 @@ export class Wish {
   readonly comments: string | null
 
   constructor (json: any) {
+    Wish.validate(json)
+    this.id = json.id
+    this.name = json.name
+    this.linkUrl = json.linkUrl || null
+    this.currency = json.currency
+    this.price = json.price
+    this.comments = json.comments || null
+  }
+
+  static validate (json: any): void {
     if (!json.name) {
       throw new InexistentFieldError('Wish must have a name')
     }
@@ -30,12 +40,5 @@ export class Wish {
     if (!json.price) {
       throw new InexistentFieldError('Wish must have a price')
     }
-
-    this.id = json.id
-    this.name = json.name
-    this.linkUrl = json.linkUrl || null
-    this.currency = json.currency
-    this.price = json.price
-    this.comments = json.comments || null
   }
 }
