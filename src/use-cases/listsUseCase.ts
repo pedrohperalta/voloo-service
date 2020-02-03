@@ -1,6 +1,7 @@
 import { ListsDb } from '../database'
 import { List } from '../entities'
 import { NotFoundError } from '../errors'
+import { filteredJSON } from './utils'
 
 export class ListsUseCase {
   private db: ListsDb
@@ -19,19 +20,11 @@ export class ListsUseCase {
   }
 
   edit = async (id: string, json: JSON): Promise<List | null> => {
-    const editableFields = ['name', 'category', 'isPrivate']
-
-    const filtered = Object.keys(json)
-      .filter(key => editableFields.includes(key))
-      .map((key: string) => {
-        const obj = {}
-        obj[key] = json[key]
-        return obj
-      })
-      .reduce((previous, current) => ({
-        ...previous,
-        ...current
-      }), {})
+    const filtered = filteredJSON([
+      'name',
+      'category',
+      'isPrivate'
+    ], json)
 
     const currentList = await this.db.find(id)
     if (!currentList) {
