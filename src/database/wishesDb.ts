@@ -57,4 +57,13 @@ export class WishesDb {
 
     return new Wish(edited)
   }
+
+  delete = async (id: string): Promise<Wish | null> => {
+    const deleted = await this.document.findByIdAndDelete(id)
+    if (!deleted) {
+      return null
+    }
+
+    return new Wish(deleted)
+  }
 }

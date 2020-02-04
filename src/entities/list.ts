@@ -48,4 +48,8 @@ export class List {
       throw new InvalidFieldError('Invalid category')
     }
   }
+
+  contains (wishId: string): boolean {
+    return this.wishes.map(w => w.id).filter(id => id === wishId).length !== 0
+  }
 }

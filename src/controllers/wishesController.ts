@@ -27,4 +27,14 @@ export class WishesController {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }
   }
+
+  delete = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const { listId, wishId } = req.params
+      await this.wishesUseCase.delete(listId, wishId)
+      return res.status(204).send()
+    } catch (error) {
+      return res.status(statusCodeForError(error)).json({ error: error.message })
+    }
+  }
 }

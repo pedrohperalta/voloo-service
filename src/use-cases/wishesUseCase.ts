@@ -1,5 +1,5 @@
 import { ListsDb, WishesDb } from '../database'
-import { Wish } from '../entities'
+import { List, Wish } from '../entities'
 import { NotFoundError } from '../errors'
 import { filteredJSON } from './utils'
 
@@ -13,10 +13,7 @@ export class WishesUseCase {
   }
 
   create = async (listId: string, json: JSON): Promise<Wish> => {
-    const list = await this.listsDb.find(listId)
-    if (!list) {
-      throw new NotFoundError('Wishlist does not exist')
-    }
+    await this.findList(listId)
 
     const wish = new Wish(json)
     const created = await this.wishesDb.create(wish)
@@ -35,19 +32,12 @@ export class WishesUseCase {
       'comments'
     ], json)
 
-    const list = await this.listsDb.find(listId)
-    if (!list) {
-      throw new NotFoundError('Wishlist does not exist')
-    }
-
-    if (list.wishes.map(w => w.id).filter(id => id === wishId).length === 0) {
+    const list = await this.findList(listId)
+    if (!list.contains(wishId)) {
       throw new NotFoundError('Wishlist does not contain this wish')
     }
 
-    const currentWish = await this.wishesDb.find(wishId)
-    if (!currentWish) {
-      throw new NotFoundError('Wish does not exist')
-    }
+    const currentWish = await this.findWish(wishId)
 
     Wish.validate({
       ...currentWish,
@@ -55,5 +45,37 @@ export class WishesUseCase {
     })
 
     return this.wishesDb.edit(wishId, filtered)
+  }
+
+  delete = async (listId: string, wishId: string): Promise<void> => {
+    const list = await this.findList(listId)
+    if (!list.contains(wishId)) {
+      throw new NotFoundError('Wishlist does not contain this wish')
+    }
+
+    const deletedWish = await this.wishesDb.delete(wishId)
+    if (!deletedWish) {
+      throw new NotFoundError('Wish does not exist')
+    }
+
+    return Promise.resolve()
+  }
+
+  private findList = async (id: string): Promise<List> => {
+    const list = await this.listsDb.find(id)
+    if (!list) {
+      throw new NotFoundError('Wishlist does not exist')
+    } else {
+      return list
+    }
+  }
+
+  private findWish = async (wishId: string): Promise<Wish> => {
+    const wish = await this.wishesDb.find(wishId)
+    if (!wish) {
+      throw new NotFoundError('Wish does not exist')
+    } else {
+      return wish
+    }
   }
 }

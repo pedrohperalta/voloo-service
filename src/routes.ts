@@ -11,5 +11,6 @@ routes.patch('/lists/:id', listsController.edit)
 /* Wishes API */
 routes.post('/lists/:id/wishes', wishesController.create)
 routes.patch('/lists/:listId/wishes/:wishId', wishesController.edit)
+routes.delete('/lists/:listId/wishes/:wishId', wishesController.delete)
 
 export default routes
