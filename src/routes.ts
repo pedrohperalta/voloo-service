@@ -7,6 +7,7 @@ const routes = Router()
 routes.get('/lists', listsController.list)
 routes.post('/lists', listsController.create)
 routes.patch('/lists/:id', listsController.edit)
+routes.delete('/lists/:id', listsController.delete)
 
 /* Wishes API */
 routes.post('/lists/:id/wishes', wishesController.create)

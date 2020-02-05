@@ -38,4 +38,13 @@ export class ListsUseCase {
 
     return this.db.edit(id, filtered)
   }
+
+  delete = async (id: string): Promise<void> => {
+    const deletedList = await this.db.delete(id)
+    if (!deletedList) {
+      throw new NotFoundError('Wishlist does not exist')
+    }
+
+    return Promise.resolve()
+  }
 }

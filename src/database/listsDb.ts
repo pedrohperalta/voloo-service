@@ -17,10 +17,10 @@ export class ListsDb {
 
     const created = await this.document.create(list)
 
-    return {
+    return new List({
       ...list,
       id: created.id
-    }
+    })
   }
 
   list = async (): Promise<List[]> => {
@@ -68,10 +68,21 @@ export class ListsDb {
   addWish = async (id: string, wish: Wish): Promise<List> => {
     await this.connectDb()
 
-    return this.document.findByIdAndUpdate(
+    const edited = await this.document.findByIdAndUpdate(
       id,
       { $push: { wishes: wish.id } },
       { new: true }
-    )
+    ).populate('wishes')
+
+    return new List(edited)
+  }
+
+  delete = async (id: string): Promise<List | null> => {
+    const deleted = await this.document.findByIdAndDelete(id).populate('wishes')
+    if (!deleted) {
+      return null
+    }
+
+    return new List(deleted)
   }
 }

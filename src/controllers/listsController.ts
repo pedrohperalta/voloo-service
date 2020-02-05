@@ -35,4 +35,13 @@ export class ListsController {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }
   }
+
+  delete = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      await this.useCase.delete(req.params.id)
+      return res.status(204).send()
+    } catch (error) {
+      return res.status(statusCodeForError(error)).json({ error: error.message })
+    }
+  }
 }

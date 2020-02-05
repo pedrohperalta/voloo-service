@@ -20,7 +20,7 @@ export class WishesUseCase {
 
     await this.listsDb.addWish(listId, created)
 
-    return wish
+    return created
   }
 
   edit = async (listId: string, wishId: string, json: JSON): Promise<Wish | null> => {
