@@ -6,7 +6,7 @@ export default class App {
   private webServer: express.Application
   private port: number
 
-  constructor (webServer: express.Application, port: number) {
+  constructor(webServer: express.Application, port: number) {
     this.webServer = webServer
     this.port = port
     this.setupMiddlewares()

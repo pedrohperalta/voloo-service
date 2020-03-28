@@ -7,7 +7,7 @@ export class ListsDb {
   private document: Model<ListDbModel>
   private connectDb: () => Promise<void>
 
-  constructor (document: Model<ListDbModel>, connectDb: () => Promise<void>) {
+  constructor(document: Model<ListDbModel>, connectDb: () => Promise<void>) {
     this.document = document
     this.connectDb = connectDb
   }
@@ -19,7 +19,7 @@ export class ListsDb {
 
     return new List({
       ...list,
-      id: created.id
+      id: created.id,
     })
   }
 
@@ -55,7 +55,7 @@ export class ListsDb {
     const edited = await this.document.findByIdAndUpdate(
       id,
       { $set: newList },
-      { new: true }
+      { new: true },
     ).populate('wishes')
 
     if (!edited) {
@@ -71,7 +71,7 @@ export class ListsDb {
     const edited = await this.document.findByIdAndUpdate(
       id,
       { $push: { wishes: wish.id } },
-      { new: true }
+      { new: true },
     ).populate('wishes')
 
     return new List(edited)

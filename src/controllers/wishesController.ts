@@ -5,7 +5,7 @@ import { statusCodeForError } from './utils'
 export class WishesController {
   private wishesUseCase: WishesUseCase
 
-  constructor (wishesUseCase: WishesUseCase) {
+  constructor(wishesUseCase: WishesUseCase) {
     this.wishesUseCase = wishesUseCase
   }
 

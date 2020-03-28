@@ -12,7 +12,7 @@ const availableCategories = [
   'sports',
   'trip',
   'toys',
-  'wedding'
+  'wedding',
 ]
 
 export class List {
@@ -22,7 +22,7 @@ export class List {
   readonly isPrivate: boolean
   readonly wishes: Wish[]
 
-  constructor (json: any) {
+  constructor(json: any) {
     List.validate(json)
     this.id = json.id
     this.name = json.name
@@ -31,7 +31,7 @@ export class List {
     this.wishes = json.wishes?.map(w => new Wish(w))
   }
 
-  static validate (json: any): void {
+  static validate(json: any): void {
     if (!json.name) {
       throw new InexistentFieldError('Wishlist must have a name')
     }
@@ -49,7 +49,7 @@ export class List {
     }
   }
 
-  contains (wishId: string): boolean {
+  contains(wishId: string): boolean {
     return this.wishes.map(w => w.id).filter(id => id === wishId).length !== 0
   }
 }

@@ -169,5 +169,5 @@ export const currencies = {
   YER: 'Yemeni Rial',
   ZAR: 'South African Rand',
   ZMW: 'Zambian Kwacha',
-  ZWL: 'Zimbabwean Dollar'
+  ZWL: 'Zimbabwean Dollar',
 }

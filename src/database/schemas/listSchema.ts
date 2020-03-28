@@ -12,23 +12,23 @@ export const ListSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   category: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   isPrivate: {
     type: Boolean,
-    required: true
+    required: true,
   },
   wishes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Wish'
-    }
-  ]
+      ref: 'Wish',
+    },
+  ],
 }, {
-  timestamps: true
+  timestamps: true,
 })

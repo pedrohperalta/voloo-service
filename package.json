@@ -6,8 +6,7 @@
   "scripts": {
     "build": "node_modules/sucrase/bin/sucrase ./src -d ./dist --transforms typescript,imports",
     "dev": "node_modules/nodemon/bin/nodemon.js src/server.ts",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --quiet",
-    "lint-fix": "eslint \"src/**/*.{ts,tsx}\" --quiet --fix",
+    "lint": "node_modules/.bin/eslint . --ext .ts",
     "test": "test"
   },
   "repository": {
@@ -51,14 +50,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn lint"
     }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json}": [
-      "yarn lint",
-      "yarn prettier-write",
-      "git add"
-    ]
   }
 }

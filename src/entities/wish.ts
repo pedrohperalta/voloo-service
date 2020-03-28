@@ -10,7 +10,7 @@ export class Wish {
   readonly price: number
   readonly comments: string | null
 
-  constructor (json: any) {
+  constructor(json: any) {
     Wish.validate(json)
     this.id = json.id
     this.name = json.name
@@ -20,7 +20,7 @@ export class Wish {
     this.comments = json.comments || null
   }
 
-  static validate (json: any): void {
+  static validate(json: any): void {
     if (!json.name) {
       throw new InexistentFieldError('Wish must have a name')
     }

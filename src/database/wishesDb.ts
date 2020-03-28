@@ -7,7 +7,7 @@ export class WishesDb {
   private document: Model<WishDbModel>
   private connectDb: () => Promise<void>
 
-  constructor (document: Model<WishDbModel>, connectDb: () => Promise<void>) {
+  constructor(document: Model<WishDbModel>, connectDb: () => Promise<void>) {
     this.document = document
     this.connectDb = connectDb
   }
@@ -19,7 +19,7 @@ export class WishesDb {
 
     return {
       ...wish,
-      id: created.id
+      id: created.id,
     }
   }
 
@@ -48,7 +48,7 @@ export class WishesDb {
     const edited = await this.document.findByIdAndUpdate(
       id,
       { $set: newWish },
-      { new: true }
+      { new: true },
     )
 
     if (!edited) {

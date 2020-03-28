@@ -6,7 +6,7 @@ import { filteredJSON } from './utils'
 export class ListsUseCase {
   private db: ListsDb
 
-  constructor (db: ListsDb) {
+  constructor(db: ListsDb) {
     this.db = db
   }
 
@@ -23,7 +23,7 @@ export class ListsUseCase {
     const filtered = filteredJSON([
       'name',
       'category',
-      'isPrivate'
+      'isPrivate',
     ], json)
 
     const currentList = await this.db.find(id)
@@ -33,7 +33,7 @@ export class ListsUseCase {
 
     List.validate({
       ...currentList,
-      ...filtered
+      ...filtered,
     })
 
     return this.db.edit(id, filtered)

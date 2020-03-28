@@ -12,25 +12,25 @@ export const WishSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   linkUrl: {
     type: String,
-    trim: true
+    trim: true,
   },
   currency: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   comment: {
     type: String,
-    trim: true
-  }
+    trim: true,
+  },
 }, {
-  timestamps: true
+  timestamps: true,
 })

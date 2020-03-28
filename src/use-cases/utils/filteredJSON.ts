@@ -8,6 +8,6 @@ export const filteredJSON = (editableFields: string[], json: JSON): {} => {
     })
     .reduce((previous, current) => ({
       ...previous,
-      ...current
+      ...current,
     }), {})
 }

@@ -7,7 +7,7 @@ export class WishesUseCase {
   private wishesDb: WishesDb
   private listsDb: ListsDb
 
-  constructor (wishesDb: WishesDb, listsDb: ListsDb) {
+  constructor(wishesDb: WishesDb, listsDb: ListsDb) {
     this.wishesDb = wishesDb
     this.listsDb = listsDb
   }
@@ -29,7 +29,7 @@ export class WishesUseCase {
       'linkUrl',
       'currency',
       'price',
-      'comments'
+      'comments',
     ], json)
 
     const list = await this.findList(listId)
@@ -41,7 +41,7 @@ export class WishesUseCase {
 
     Wish.validate({
       ...currentWish,
-      ...filtered
+      ...filtered,
     })
 
     return this.wishesDb.edit(wishId, filtered)

@@ -5,7 +5,7 @@ import { statusCodeForError } from './utils'
 export class ListsController {
   private useCase: ListsUseCase
 
-  constructor (useCase: ListsUseCase) {
+  constructor(useCase: ListsUseCase) {
     this.useCase = useCase
   }
 
