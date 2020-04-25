@@ -1,24 +1,25 @@
-import { ListsDb, WishesDb } from '../database'
 import { List, Wish } from '../entities'
 import { NotFoundError } from '../errors'
+import ListRepository from '../infra/repository/listRepository'
+import WishRepository from '../infra/repository/wishRepository'
 import { filteredJSON } from './utils'
 
 export class WishesUseCase {
-  private wishesDb: WishesDb
-  private listsDb: ListsDb
+  private wishRepo: WishRepository
+  private listRepo: ListRepository
 
-  constructor(wishesDb: WishesDb, listsDb: ListsDb) {
-    this.wishesDb = wishesDb
-    this.listsDb = listsDb
+  constructor(wishRepo: WishRepository, listRepo: ListRepository) {
+    this.wishRepo = wishRepo
+    this.listRepo = listRepo
   }
 
   create = async (listId: string, json: JSON): Promise<Wish> => {
     await this.findList(listId)
 
     const wish = new Wish(json)
-    const created = await this.wishesDb.create(wish)
+    const created = await this.wishRepo.create(wish)
 
-    await this.listsDb.addWish(listId, created)
+    await this.listRepo.addWish(listId, created)
 
     return created
   }
@@ -44,7 +45,7 @@ export class WishesUseCase {
       ...filtered,
     })
 
-    return this.wishesDb.edit(wishId, filtered)
+    return this.wishRepo.edit(wishId, filtered)
   }
 
   delete = async (listId: string, wishId: string): Promise<void> => {
@@ -53,7 +54,7 @@ export class WishesUseCase {
       throw new NotFoundError('Wishlist does not contain this wish')
     }
 
-    const deletedWish = await this.wishesDb.delete(wishId)
+    const deletedWish = await this.wishRepo.delete(wishId)
     if (!deletedWish) {
       throw new NotFoundError('Wish does not exist')
     }
@@ -62,7 +63,7 @@ export class WishesUseCase {
   }
 
   private findList = async (id: string): Promise<List> => {
-    const list = await this.listsDb.find(id)
+    const list = await this.listRepo.find(id)
     if (!list) {
       throw new NotFoundError('Wishlist does not exist')
     } else {
@@ -71,7 +72,7 @@ export class WishesUseCase {
   }
 
   private findWish = async (wishId: string): Promise<Wish> => {
-    const wish = await this.wishesDb.find(wishId)
+    const wish = await this.wishRepo.find(wishId)
     if (!wish) {
       throw new NotFoundError('Wish does not exist')
     } else {

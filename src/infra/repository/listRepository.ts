@@ -1,20 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model, Types } from 'mongoose'
-import { List, Wish } from '../entities'
-import { ListDbModel } from './schemas'
+import { List, Wish } from '../../entities'
+import { ListDbModel } from '../schemas'
 
-export class ListsDb {
+export default class ListRepository {
   private document: Model<ListDbModel>
-  private connectDb: () => Promise<void>
 
-  constructor(document: Model<ListDbModel>, connectDb: () => Promise<void>) {
+  constructor(document: Model<ListDbModel>) {
     this.document = document
-    this.connectDb = connectDb
   }
 
   create = async (list: List): Promise<List> => {
-    await this.connectDb()
-
     const created = await this.document.create(list)
 
     return new List({
@@ -24,15 +20,11 @@ export class ListsDb {
   }
 
   list = async (): Promise<List[]> => {
-    await this.connectDb()
-
     const lists = await this.document.find().populate('wishes')
     return lists.map(listDb => new List(listDb))
   }
 
   find = async (id: string): Promise<List | null> => {
-    await this.connectDb()
-
     if (!Types.ObjectId.isValid(id)) {
       return null
     }
@@ -46,8 +38,6 @@ export class ListsDb {
   }
 
   edit = async (id: string, newList: {[key: string]: any}): Promise<List | null> => {
-    await this.connectDb()
-
     if (!Types.ObjectId.isValid(id)) {
       return null
     }
@@ -66,8 +56,6 @@ export class ListsDb {
   }
 
   addWish = async (id: string, wish: Wish): Promise<List> => {
-    await this.connectDb()
-
     const edited = await this.document.findByIdAndUpdate(
       id,
       { $push: { wishes: wish.id } },

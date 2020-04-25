@@ -1,20 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model, Types } from 'mongoose'
-import { Wish } from '../entities'
-import { WishDbModel } from './schemas'
+import { Wish } from '../../entities'
+import { WishDbModel } from '../schemas'
 
-export class WishesDb {
+export default class WishRepository {
   private document: Model<WishDbModel>
-  private connectDb: () => Promise<void>
 
-  constructor(document: Model<WishDbModel>, connectDb: () => Promise<void>) {
+  constructor(document: Model<WishDbModel>) {
     this.document = document
-    this.connectDb = connectDb
   }
 
   create = async (wish: Wish): Promise<Wish> => {
-    await this.connectDb()
-
     const created = await this.document.create(wish)
 
     return {
@@ -24,8 +20,6 @@ export class WishesDb {
   }
 
   find = async (id: string): Promise<Wish | null> => {
-    await this.connectDb()
-
     if (!Types.ObjectId.isValid(id)) {
       return null
     }
@@ -39,8 +33,6 @@ export class WishesDb {
   }
 
   edit = async (id: string, newWish: {[key: string]: any}): Promise<Wish | null> => {
-    await this.connectDb()
-
     if (!Types.ObjectId.isValid(id)) {
       return null
     }

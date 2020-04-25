@@ -1,16 +1,17 @@
 import cors from 'cors'
 import express from 'express'
+import Database from './infra/mongoose'
 import routes from './routes'
 
 export default class App {
   private webServer: express.Application
   private port: number
+  private database: Database
 
-  constructor(webServer: express.Application, port: number) {
+  constructor(webServer: express.Application, port: number, database: Database) {
     this.webServer = webServer
     this.port = port
-    this.setupMiddlewares()
-    this.setupRoutes()
+    this.database = database
   }
 
   private setupMiddlewares = (): void => {
@@ -20,6 +21,18 @@ export default class App {
 
   private setupRoutes = (): void => {
     this.webServer.use(routes)
+  }
+
+  private connectDatabase = (): Promise<void> => {
+    return this.database.connect()
+  }
+
+  setup = async (): Promise<App> => {
+    this.setupMiddlewares()
+    this.setupRoutes()
+    await this.connectDatabase()
+
+    return this
   }
 
   listen = (): void => {

@@ -1,10 +1,10 @@
 import App from './app'
 import express from 'express'
+import { database } from './infra/mongoose'
 
 require('dotenv').config()
 
 const webServer = express()
 const port = process.env.SERVER_PORT
-const app = new App(webServer, Number(port))
 
-app.listen()
+new App(webServer, Number(port), database).setup().then(app => app.listen())
