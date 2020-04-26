@@ -1,9 +1,9 @@
+import { ListRepository, WishRepository } from '../../infra'
 import { List, Wish } from '../entities'
 import { NotFoundError } from '../errors'
-import { ListRepository, WishRepository } from '../infra'
-import { filteredJSON } from './utils'
+import { filteredJSON } from '../utils'
 
-export class WishesUseCase {
+export default class WishesUseCase {
   private wishRepo: WishRepository
   private listRepo: ListRepository
 

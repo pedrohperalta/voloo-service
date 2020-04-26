@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { ListsUseCase } from '../use-cases'
+import { ListsUseCase } from '../domain'
 import { statusCodeForError } from './utils'
 
 export class ListsController {

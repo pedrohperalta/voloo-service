@@ -1,4 +1,4 @@
-import { EmptyFieldError, InexistentFieldError, NotFoundError } from '../../errors'
+import { EmptyFieldError, InexistentFieldError, NotFoundError } from '../../domain'
 
 export const statusCodeForError = (error: Error): number => {
   let code: number

@@ -1,4 +1,4 @@
-import { listsUseCase, wishesUseCase } from '../use-cases'
+import { listsUseCase, wishesUseCase } from '../domain'
 import { ListsController } from './listsController'
 import { WishesController } from './wishesController'
 

@@ -1,9 +1,9 @@
+import { ListRepository } from '../../infra'
 import { List } from '../entities'
 import { NotFoundError } from '../errors'
-import { ListRepository } from '../infra'
-import { filteredJSON } from './utils'
+import { filteredJSON } from '../utils'
 
-export class ListsUseCase {
+export default class ListsUseCase {
   private repo: ListRepository
 
   constructor(db: ListRepository) {

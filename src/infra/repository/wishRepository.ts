@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model, Types } from 'mongoose'
-import { Wish } from '../../entities'
+import { Wish } from '../../domain'
 import { WishDbModel } from '../db'
 
 export default class WishRepository {
