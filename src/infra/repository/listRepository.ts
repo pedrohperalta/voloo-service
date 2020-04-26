@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model, Types } from 'mongoose'
 import { List, Wish } from '../../entities'
-import { ListDbModel } from '../schemas'
+import { ListDbModel } from '../db'
 
 export default class ListRepository {
   private document: Model<ListDbModel>

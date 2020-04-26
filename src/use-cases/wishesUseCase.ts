@@ -1,7 +1,6 @@
 import { List, Wish } from '../entities'
 import { NotFoundError } from '../errors'
-import ListRepository from '../infra/repository/listRepository'
-import WishRepository from '../infra/repository/wishRepository'
+import { ListRepository, WishRepository } from '../infra'
 import { filteredJSON } from './utils'
 
 export class WishesUseCase {

@@ -1,14 +1,6 @@
-import { Document, Schema } from 'mongoose'
+import { Schema } from 'mongoose'
 
-export interface WishDbModel extends Document {
-  name: string
-  linkUrl: string | null
-  currency: string
-  price: number
-  comments: string | null
-}
-
-export const WishSchema = new Schema({
+const WishSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -34,3 +26,5 @@ export const WishSchema = new Schema({
 }, {
   timestamps: true,
 })
+
+export default WishSchema

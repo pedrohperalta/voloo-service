@@ -1,14 +1,6 @@
-import { Document, Schema } from 'mongoose'
-import { WishDbModel } from './wishSchema'
+import { Schema } from 'mongoose'
 
-export interface ListDbModel extends Document {
-  name: string
-  category: string
-  isPrivate: boolean
-  wishes: WishDbModel[]
-}
-
-export const ListSchema = new Schema({
+const ListSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -32,3 +24,5 @@ export const ListSchema = new Schema({
 }, {
   timestamps: true,
 })
+
+export default ListSchema

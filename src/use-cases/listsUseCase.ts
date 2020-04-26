@@ -1,6 +1,6 @@
 import { List } from '../entities'
 import { NotFoundError } from '../errors'
-import ListRepository from '../infra/repository/listRepository'
+import { ListRepository } from '../infra'
 import { filteredJSON } from './utils'
 
 export class ListsUseCase {
