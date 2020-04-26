@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { currencies } from '../../utils'
 import { EmptyFieldError, InexistentFieldError, InvalidFieldError } from '../errors'
-import { currencies } from '../utils'
 
 export class Wish {
   readonly id?: string

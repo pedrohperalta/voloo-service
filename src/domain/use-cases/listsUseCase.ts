@@ -3,7 +3,7 @@ import { List } from '../entities'
 import { NotFoundError } from '../errors'
 import { filteredJSON } from '../utils'
 
-export default class ListsUseCase {
+export class ListsUseCase {
   private repo: ListRepository
 
   constructor(db: ListRepository) {

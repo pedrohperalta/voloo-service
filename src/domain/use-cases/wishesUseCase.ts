@@ -3,7 +3,7 @@ import { List, Wish } from '../entities'
 import { NotFoundError } from '../errors'
 import { filteredJSON } from '../utils'
 
-export default class WishesUseCase {
+export class WishesUseCase {
   private wishRepo: WishRepository
   private listRepo: ListRepository
 

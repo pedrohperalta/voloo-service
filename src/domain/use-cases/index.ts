@@ -1,6 +1,6 @@
 import { listRepository, wishRepository } from '../../infra'
-import ListsUseCase from './listsUseCase'
-import WishesUseCase from './wishesUseCase'
+import { ListsUseCase } from './listsUseCase'
+import { WishesUseCase } from './wishesUseCase'
 
 export * from './listsUseCase'
 export * from './wishesUseCase'
