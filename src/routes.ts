@@ -1,7 +1,10 @@
 import { Router } from 'express'
-import { listsController, wishesController } from './controllers'
+import { listsController, registrationController, wishesController } from './controllers'
 
 const routes = Router()
+
+/* Registration API */
+routes.post('/register', registrationController.create)
 
 /* Lists API */
 routes.get('/lists', listsController.list)

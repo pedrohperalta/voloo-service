@@ -1,4 +1,4 @@
-import { InvalidFieldError } from '../errors'
+import { InexistentFieldError, InvalidFieldError } from '../errors'
 import { isValidEmail } from '../utils'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -17,16 +17,32 @@ export class SignUp {
   }
 
   static validate(json: any): void {
-    if (!json.firstName || json.firstName.length < 2) {
+    if (!json.firstName) {
+      throw new InexistentFieldError('Missing required field firstName')
+    }
+
+    if (json.firstName.length < 2) {
       throw new InvalidFieldError('Invalid first name')
     }
 
-    if (!json.lastName || json.lastName.length < 2) {
+    if (!json.lastName) {
+      throw new InexistentFieldError('Missing required field lastName')
+    }
+
+    if (json.lastName.length < 2) {
       throw new InvalidFieldError('Invalid last name')
     }
 
-    if (!json.email || !isValidEmail(json.email)) {
+    if (!json.email) {
+      throw new InexistentFieldError('Missing required field email')
+    }
+
+    if (!isValidEmail(json.email)) {
       throw new InvalidFieldError('Invalid email')
+    }
+
+    if (!json.password) {
+      throw new InvalidFieldError('Missing required field password')
     }
 
     if (!json.password || json.password.length < 8) {

@@ -17,4 +17,14 @@ export default class UserRepository {
       id: created.id,
     }
   }
+
+  findByEmail = async (email: string): Promise<User | null> => {
+    const userDb = await this.document.findOne({ email })
+
+    if (!userDb) {
+      return null
+    }
+
+    return new User(userDb)
+  }
 }

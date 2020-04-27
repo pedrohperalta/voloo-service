@@ -4,6 +4,6 @@ export const isValidEmail = (email: string): boolean => {
 }
 
 export const generateRandomString = (length: number): string => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~!@#$%^&*()_+-=[]{}|;:,.<>?'
-  return [...Array(length)].map(() => characters.charAt(Math.floor(Math.random() * characters.length))).join()
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)'
+  return [...Array(length)].map(() => characters.charAt(Math.floor(Math.random() * characters.length))).join('')
 }

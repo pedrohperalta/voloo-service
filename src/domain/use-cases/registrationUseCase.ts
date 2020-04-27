@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import { SessionRepository, UserRepository } from '../../infra'
 import { Session, SignUp, User } from '../entities'
+import { ConflictError } from '../errors'
 import { generateRandomString } from '../utils'
 
 export class RegistrationUseCase {
@@ -15,9 +16,13 @@ export class RegistrationUseCase {
   signUp = async (json: JSON): Promise<string> => {
     const { firstName, lastName, email, password } = new SignUp(json)
 
+    const existingUser = await this.userRepo.findByEmail(email)
+    if (existingUser) {
+      throw new ConflictError('There is an account already registered with this email')
+    }
+
     const salt = await bcrypt.genSalt()
     const pwdHash = await bcrypt.hash(password, salt)
-
     const user = new User({
       firstName,
       lastName,
@@ -27,7 +32,6 @@ export class RegistrationUseCase {
     })
 
     const { id } = await this.userRepo.create(user)
-
     const session = new Session({
       token: generateRandomString(32),
       userId: id,
