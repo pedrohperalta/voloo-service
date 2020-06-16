@@ -33,8 +33,8 @@ export default class UserRepository {
     return new User(updatedUser)
   }
 
-  findByEmail = async (email: string): Promise<User | null> => {
-    const userDb = await this.document.findOne({ email })
+  findByField = async <T>(field: string, value: T): Promise<User | null> => {
+    const userDb = await this.document.findOne({ [field]: value })
 
     if (!userDb) {
       return null

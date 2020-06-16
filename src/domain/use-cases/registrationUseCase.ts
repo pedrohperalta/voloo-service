@@ -16,7 +16,7 @@ export class RegistrationUseCase {
   signUp = async (json: JSON): Promise<string> => {
     const { firstName, lastName, email, password } = new SignUp(json)
 
-    const existingUser = await this.userRepo.findByEmail(email)
+    const existingUser = await this.userRepo.findByField('email', email)
     if (existingUser) {
       throw new ConflictError('There is an account already registered with this email')
     }
