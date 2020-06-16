@@ -1,10 +1,13 @@
 import { Router } from 'express'
-import { listsController, registrationController, wishesController } from './controllers'
+import { accountController, listsController, registrationController, wishesController } from './controllers'
 
 const routes = Router()
 
 /* Registration API */
 routes.post('/register', registrationController.create)
+
+/* Account API */
+routes.post('/account/verify', accountController.verify)
 
 /* Lists API */
 routes.get('/lists', listsController.list)

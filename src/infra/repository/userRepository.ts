@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Model } from 'mongoose'
 import { User } from '../../domain'
 import { UserDbModel } from '../db'
@@ -16,6 +17,20 @@ export default class UserRepository {
       ...user,
       id: created.id,
     }
+  }
+
+  updateByField = async <T>(field: string, value: T, updatedEntries: any): Promise<User | null> => {
+    const updatedUser = await this.document.findOneAndUpdate(
+      { [field]: value },
+      { $set: updatedEntries },
+      { new: true },
+    )
+
+    if (!updatedUser) {
+      return null
+    }
+
+    return new User(updatedUser)
   }
 
   findByEmail = async (email: string): Promise<User | null> => {
