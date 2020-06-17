@@ -6,13 +6,13 @@ const SessionSchema = new Schema({
     required: true,
     trim: true,
   },
-  userId: {
-    type: String,
-    required: true,
-  },
   lastSeenTime: {
     type: Date,
     default: Date.now,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 }, {
   timestamps: true,

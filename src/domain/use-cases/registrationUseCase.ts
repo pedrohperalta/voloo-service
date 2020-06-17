@@ -55,11 +55,8 @@ export class RegistrationUseCase {
   }
 
   private createSession = async (userId: string): Promise<Session> => {
-    const session = new Session({
-      token: generateRandomString(32),
-      userId,
-    })
+    const session = new Session({ token: generateRandomString(64) })
 
-    return this.sessionRepo.create(session)
+    return this.sessionRepo.create(session, userId)
   }
 }

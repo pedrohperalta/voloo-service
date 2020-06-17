@@ -1,7 +1,8 @@
 import { Document } from 'mongoose'
+import UserDbModel from './userDbModel'
 
 export default interface SessionDbModel extends Document {
   token: string
-  userId: string
   lastSeenTime: Date
+  user: UserDbModel
 }
