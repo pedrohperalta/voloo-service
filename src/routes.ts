@@ -4,7 +4,8 @@ import { accountController, listsController, registrationController, wishesContr
 const routes = Router()
 
 /* Registration API */
-routes.post('/register', registrationController.create)
+routes.post('/login', registrationController.login)
+routes.post('/register', registrationController.signUp)
 
 /* Account API */
 routes.post('/account/verify', accountController.verify)

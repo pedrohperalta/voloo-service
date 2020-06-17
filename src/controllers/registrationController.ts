@@ -9,7 +9,16 @@ export class RegistrationController {
     this.registrationUseCase = registrationUseCase
   }
 
-  create = async (req: Request, res: Response): Promise<Response> => {
+  login = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const token = await this.registrationUseCase.login(req.body)
+      return res.json({ token })
+    } catch (error) {
+      return res.status(statusCodeForError(error)).json({ error: error.message })
+    }
+  }
+
+  signUp = async (req: Request, res: Response): Promise<Response> => {
     try {
       const token = await this.registrationUseCase.signUp(req.body)
       return res.json({ token })

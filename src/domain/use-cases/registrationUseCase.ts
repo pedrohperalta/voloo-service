@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { SessionRepository, UserRepository } from '../../infra'
-import { Session, SignUp, User } from '../entities'
-import { ConflictError } from '../errors'
+import { Login, Session, SignUp, User } from '../entities'
+import { ConflictError, UnauthorizedError } from '../errors'
 import { generateRandomString } from '../utils'
 
 export class RegistrationUseCase {
@@ -11,6 +11,24 @@ export class RegistrationUseCase {
   constructor(userRepo: UserRepository, sessionRepo: SessionRepository) {
     this.userRepo = userRepo
     this.sessionRepo = sessionRepo
+  }
+
+  login = async (json: JSON): Promise<string> => {
+    const { email, password } = new Login(json)
+
+    const user = await this.userRepo.findByField('email', email)
+    if (!user) {
+      throw new UnauthorizedError('invalid email')
+    }
+
+    const match = await bcrypt.compare(password, user.pwdHash)
+    if (!match) {
+      throw new UnauthorizedError('invalid password')
+    }
+
+    const { token } = await this.createSession(user.id)
+
+    return token
   }
 
   signUp = async (json: JSON): Promise<string> => {
@@ -32,13 +50,17 @@ export class RegistrationUseCase {
     })
 
     const { id } = await this.userRepo.create(user)
+    const { token } = await this.createSession(id)
+
+    return token
+  }
+
+  private createSession = async (userId: string): Promise<Session> => {
     const session = new Session({
       token: generateRandomString(32),
-      userId: id,
+      userId,
     })
 
-    await this.sessionRepo.create(session)
-
-    return session.token
+    return this.sessionRepo.create(session)
   }
 }
