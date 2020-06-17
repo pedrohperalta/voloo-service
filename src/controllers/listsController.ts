@@ -12,7 +12,7 @@ export class ListsController {
   create = async (req: Request, res: Response): Promise<Response> => {
     try {
       const created = await this.useCase.create(req.body)
-      return res.json(created)
+      return res.status(201).json(created)
     } catch (error) {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }

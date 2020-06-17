@@ -31,7 +31,7 @@ export class RegistrationUseCase {
     return token
   }
 
-  signUp = async (json: JSON): Promise<string> => {
+  signUp = async (json: JSON): Promise<void> => {
     const { firstName, lastName, email, password } = new SignUp(json)
 
     const existingUser = await this.userRepo.findByField('email', email)
@@ -49,10 +49,9 @@ export class RegistrationUseCase {
       activationHash: generateRandomString(32),
     })
 
-    const { id } = await this.userRepo.create(user)
-    const { token } = await this.createSession(id)
+    await this.userRepo.create(user)
 
-    return token
+    return Promise.resolve()
   }
 
   private createSession = async (userId: string): Promise<Session> => {

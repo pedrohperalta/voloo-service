@@ -12,7 +12,7 @@ export class AccountController {
   verify = async (req: Request, res: Response): Promise<Response> => {
     try {
       await this.accountUseCase.verify(req.body)
-      return res.json({ message: 'account successfully activated' })
+      return res.json({ message: 'Account successfully activated' })
     } catch (error) {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }

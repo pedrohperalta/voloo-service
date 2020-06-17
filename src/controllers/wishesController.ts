@@ -12,7 +12,7 @@ export class WishesController {
   create = async (req: Request, res: Response): Promise<Response> => {
     try {
       const created = await this.wishesUseCase.create(req.params.id, req.body)
-      return res.json(created)
+      return res.status(201).json(created)
     } catch (error) {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }

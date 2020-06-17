@@ -12,7 +12,7 @@ export class RegistrationController {
   login = async (req: Request, res: Response): Promise<Response> => {
     try {
       const token = await this.registrationUseCase.login(req.body)
-      return res.json({ token })
+      return res.status(201).json({ token })
     } catch (error) {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }
@@ -20,8 +20,8 @@ export class RegistrationController {
 
   signUp = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const token = await this.registrationUseCase.signUp(req.body)
-      return res.json({ token })
+      await this.registrationUseCase.signUp(req.body)
+      return res.status(201).json({ message: 'Account successfully created, verify the email address' })
     } catch (error) {
       return res.status(statusCodeForError(error)).json({ error: error.message })
     }
