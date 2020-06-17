@@ -17,4 +17,14 @@ export default class SessionRepository {
       id: created.id,
     }
   }
+
+  findByToken = async (token: string): Promise<Session | null> => {
+    const sessionDb = await this.document.findOne({ token })
+
+    if (!sessionDb) {
+      return null
+    }
+
+    return new Session(sessionDb)
+  }
 }

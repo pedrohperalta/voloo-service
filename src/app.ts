@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import authMiddleware from './delivery/middlewares/authMiddleware'
 import routes from './delivery/routes'
 import Database from './infra/mongoose'
 
@@ -17,6 +18,7 @@ export default class App {
   private setupMiddlewares = (): void => {
     this.webServer.use(express.json())
     this.webServer.use(cors())
+    this.webServer.use(authMiddleware)
   }
 
   private setupRoutes = (): void => {
