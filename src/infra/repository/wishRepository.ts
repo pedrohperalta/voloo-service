@@ -25,11 +25,7 @@ export default class WishRepository {
     }
 
     const wishDb = await this.document.findById(id)
-    if (!wishDb) {
-      return null
-    }
-
-    return new Wish(wishDb)
+    return wishDb ? new Wish(wishDb) : null
   }
 
   edit = async (id: string, newWish: {[key: string]: any}): Promise<Wish | null> => {
@@ -43,19 +39,11 @@ export default class WishRepository {
       { new: true },
     )
 
-    if (!edited) {
-      return null
-    }
-
-    return new Wish(edited)
+    return edited ? new Wish(edited) : null
   }
 
   delete = async (id: string): Promise<Wish | null> => {
     const deleted = await this.document.findByIdAndDelete(id)
-    if (!deleted) {
-      return null
-    }
-
-    return new Wish(deleted)
+    return deleted ? new Wish(deleted) : null
   }
 }

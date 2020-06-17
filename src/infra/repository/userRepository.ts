@@ -26,20 +26,11 @@ export default class UserRepository {
       { new: true },
     )
 
-    if (!updatedUser) {
-      return null
-    }
-
-    return new User(updatedUser)
+    return updatedUser ? new User(updatedUser) : null
   }
 
   findByField = async <T>(field: string, value: T): Promise<User | null> => {
     const userDb = await this.document.findOne({ [field]: value })
-
-    if (!userDb) {
-      return null
-    }
-
-    return new User(userDb)
+    return userDb ? new User(userDb) : null
   }
 }

@@ -15,11 +15,6 @@ export default class SessionRepository {
 
   findByToken = async (token: string): Promise<Session | null> => {
     const sessionDb = await this.document.findOne({ token }).populate('user')
-
-    if (!sessionDb) {
-      return null
-    }
-
-    return new Session(sessionDb)
+    return sessionDb ? new Session(sessionDb) : null
   }
 }

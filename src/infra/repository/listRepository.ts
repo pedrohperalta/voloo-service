@@ -30,11 +30,7 @@ export default class ListRepository {
     }
 
     const listDb = await this.document.findById(id).populate('wishes')
-    if (!listDb) {
-      return null
-    }
-
-    return new List(listDb)
+    return listDb ? new List(listDb) : null
   }
 
   edit = async (id: string, newList: {[key: string]: any}): Promise<List | null> => {
@@ -48,11 +44,7 @@ export default class ListRepository {
       { new: true },
     ).populate('wishes')
 
-    if (!edited) {
-      return null
-    }
-
-    return new List(edited)
+    return edited ? new List(edited) : null
   }
 
   addWish = async (id: string, wish: Wish): Promise<List> => {
@@ -67,10 +59,6 @@ export default class ListRepository {
 
   delete = async (id: string): Promise<List | null> => {
     const deleted = await this.document.findByIdAndDelete(id).populate('wishes')
-    if (!deleted) {
-      return null
-    }
-
-    return new List(deleted)
+    return deleted ? new List(deleted) : null
   }
 }
