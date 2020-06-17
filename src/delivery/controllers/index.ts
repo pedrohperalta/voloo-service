@@ -1,4 +1,4 @@
-import { accountUseCase, listsUseCase, registrationUseCase, wishesUseCase } from '../domain'
+import { accountUseCase, listsUseCase, registrationUseCase, wishesUseCase } from '../../domain'
 import { AccountController } from './accountController'
 import { ListsController } from './listsController'
 import { RegistrationController } from './registrationController'

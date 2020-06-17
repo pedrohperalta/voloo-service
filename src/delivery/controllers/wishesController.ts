@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { WishesUseCase } from '../domain'
-import { statusCodeForError } from './utils'
+import { WishesUseCase } from '../../domain'
+import { statusCodeForError } from '../utils'
 
 export class WishesController {
   private wishesUseCase: WishesUseCase

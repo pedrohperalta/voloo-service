@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { AccountUseCase } from '../domain'
-import { statusCodeForError } from './utils'
+import { AccountUseCase } from '../../domain'
+import { statusCodeForError } from '../utils'
 
 export class AccountController {
   private accountUseCase: AccountUseCase

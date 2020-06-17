@@ -1,5 +1,5 @@
-import App from './app'
 import express from 'express'
+import App from './app'
 import { database } from './infra/mongoose'
 
 require('dotenv').config()

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { RegistrationUseCase } from '../domain'
-import { statusCodeForError } from './utils'
+import { RegistrationUseCase } from '../../domain'
+import { statusCodeForError } from '../utils'
 
 export class RegistrationController {
   private registrationUseCase: RegistrationUseCase

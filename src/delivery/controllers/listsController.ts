@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { ListsUseCase } from '../domain'
-import { statusCodeForError } from './utils'
+import { ListsUseCase } from '../../domain'
+import { statusCodeForError } from '../utils'
 
 export class ListsController {
   private useCase: ListsUseCase

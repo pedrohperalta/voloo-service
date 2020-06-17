@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express from 'express'
+import routes from './delivery/routes'
 import Database from './infra/mongoose'
-import routes from './routes'
 
 export default class App {
   private webServer: express.Application
